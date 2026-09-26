@@ -23,7 +23,7 @@ async def download(request:Request):
     if not valid_url(url): raise HTTPException(400,'Geçerli bir X URLsi gerekli.')
     folder=Path(tempfile.mkdtemp(prefix='xvid_'))
     try:
-        opts={'outtmpl':str(folder/'%(id)s.%(ext)s'),'format':'bv*+ba/b','merge_output_format':'mp4','noplaylist':True,'quiet':True,'no_warnings':True,'restrictfilenames':True}
+        opts={'outtmpl':str(folder/'%(id)s.%(ext)s'),'format':'best[ext=mp4]/best','merge_output_format':'mp4','noplaylist':True,'quiet':True,'no_warnings':True,'restrictfilenames':True}
         with YoutubeDL(opts) as ydl:
             info=ydl.extract_info(url,download=True)
             expected=Path(ydl.prepare_filename(info))
